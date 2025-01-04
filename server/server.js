@@ -9,22 +9,13 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-    io.on("message", (data) => {
-        console.log("message event recieved");
-    });
-
-    io.on("typeshii", (data) => {
-        console.log("ts event recieved");
-    });
-
-    io.on("mimi", (data) => {
-        console.log("mimi, %s", data);
+    socket.on("message", (data) => {
+        console.log("message event recieved, %s", data);
     });
 
     console.log("socket connection emitted and listeners registered");
 
     socket.emit("message", "Hello Dipo");
-    socket.emit("typeshii", "wagwan");
 });
 
 httpServer.listen(3000, () => {

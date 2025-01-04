@@ -11,14 +11,5 @@ wsio.on("disconnect", (response) => {
 wsio.on("message", (data) => {
     console.log(data);
 
-    wsio.emit("mimi");
-    wsio.emit("message", "ahhhh");
-    wsio.emit("typeshii", "shukeshukee");
-
-    console.log("should have emitted");
-});
-
-wsio.on("typeshii", (data) => {
-    console.log("typeshii data received, %s", data);
-    wsio.emit("typeshii", "type back back");
+    wsio.emit("message", "Hi Stranger, how's it goin");
 });
