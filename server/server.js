@@ -13,7 +13,9 @@ io.on("connection", (socket) => {
         console.log("message event recieved, %s", data);
     });
 
-    console.log("socket connection emitted and listeners registered");
+    socket.on("scores", (data) => {
+        console.log("scores received %s", data);
+    });
 
     socket.emit("message", "Hello Dipo");
 });

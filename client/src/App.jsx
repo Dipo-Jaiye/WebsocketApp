@@ -24,7 +24,10 @@ function App() {
     setScores((prev) => ({ ...prev, ...currentObj }));
   };
 
-  console.log(score);
+  const sendScores = () => {
+    console.log(score);
+    socket.emit("scores", score);
+  };
 
   useEffect(() => {
     connectSocket();
@@ -60,6 +63,10 @@ function App() {
         placeholder="Enter your score"
         handleInput={handleInput}
       />
+
+      <button className="send-scores" onClick={sendScores}>
+        Publish score
+      </button>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
