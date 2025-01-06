@@ -8,6 +8,7 @@ import Input from "./components/Input";
 function App() {
   const [count, setCount] = useState(0);
   const [score, setScores] = useState({});
+  const [scores, setAllScores] = useState([]);
 
   const socket = io("http://localhost:3000");
 
@@ -25,8 +26,12 @@ function App() {
   };
 
   const sendScores = () => {
-    console.log(score);
     socket.emit("scores", score);
+
+    socket.on("playerScores", (data) => {
+      console.log(data);
+      setAllScores(data);
+    });
   };
 
   useEffect(() => {
@@ -70,6 +75,24 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      {scores?.length > 0 ? (
+        <table>
+          <tbody>
+            <tr>
+              <th>Player Name</th>
+              <th>Player Score</th>
+            </tr>
+            {scores.map((scoreData) => (
+              <tr>
+                <td>{scoreData?.name}</td>
+                <td>{scoreData?.score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
