@@ -9,6 +9,7 @@ const io = new Server(httpServer, {
 });
 
 let playerScores = [];
+let chatData = [];
 
 io.on("connection", (socket) => {
   socket.on("message", (data) => {
@@ -17,11 +18,19 @@ io.on("connection", (socket) => {
 
   socket.on("scores", (data) => {
     playerScores.push({ ...data, key: socket.id });
+
+    setInterval(() => {
+      socket.emit("playerScores", playerScores);
+    }, 5000);
   });
 
-  setInterval(() => {
-    socket.emit("playerScores", playerScores);
-  }, 5000);
+  socket.on("msg", (data) => {
+    chatData.push({ message: data, name: socket.id });
+
+    setInterval(() => {
+      socket.emit("chat", chatData);
+    }, 5000);
+  });
 });
 
 httpServer.listen(3000, () => {

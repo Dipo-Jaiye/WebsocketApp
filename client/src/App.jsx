@@ -9,6 +9,8 @@ function App() {
   const [count, setCount] = useState(0);
   const [score, setScores] = useState({});
   const [scores, setAllScores] = useState([]);
+  const [chatbox, setChatbox] = useState([]);
+  const [msg, setMsg] = useState("");
 
   const socket = io("http://localhost:3000");
 
@@ -25,6 +27,16 @@ function App() {
     setScores((prev) => ({ ...prev, ...currentObj }));
   };
 
+  const handleMessage = (event) => {
+    let { value } = event.target;
+
+    setMsg(value);
+  };
+
+  const sendMessage = () => {
+    socket.emit("msg", msg);
+  };
+
   const sendScores = () => {
     socket.emit("scores", score);
 
@@ -33,6 +45,11 @@ function App() {
       setAllScores(data);
     });
   };
+
+  socket.on("chat", (chatData) => {
+    console.log(chatData);
+    setChatbox(chatData);
+  });
 
   useEffect(() => {
     connectSocket();
@@ -56,6 +73,24 @@ function App() {
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
+      </div>
+      <div className="card">
+        <h3>ChatRoom View</h3>
+        {chatbox?.length > 0 ? (
+          chatbox.map((chatData) => (
+            <p>
+              Username {chatData?.name}: {chatData?.message}
+            </p>
+          ))
+        ) : (
+          <></>
+        )}
+        <Input
+          name="msg"
+          placeholder="Enter a message"
+          handleInput={handleMessage}
+        />
+        <button onClick={sendMessage}>Send message</button>
       </div>
       <Input
         name="name"
