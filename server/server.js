@@ -27,9 +27,7 @@ io.on("connection", (socket) => {
   socket.on("msg", (data) => {
     chatData.push({ message: data, name: socket.id });
 
-    setInterval(() => {
-      socket.emit("chat", chatData);
-    }, 5000);
+    socket.emit("chat", chatData);
   });
 });
 
