@@ -14,11 +14,11 @@ function App() {
 
   const socket = io("http://localhost:3000");
 
-  const connectSocket = () => {
-    socket.on("connection", (sock) => {
-      console.log(sock);
-    });
-  };
+  socket.disconnect();
+
+  socket.on("connect", (sock) => {
+    console.log(sock);
+  });
 
   const handleInput = (event) => {
     let { name, value } = event.target;
@@ -50,10 +50,6 @@ function App() {
     console.log(chatData);
     setChatbox(chatData);
   });
-
-  useEffect(() => {
-    connectSocket();
-  }, []);
 
   return (
     <>
