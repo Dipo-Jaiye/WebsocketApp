@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node cluster.js"
+    "start": "docker compose up -d && node cluster.js"
   },
   "author": "Dipo",
   "license": "ISC",
