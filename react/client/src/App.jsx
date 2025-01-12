@@ -96,7 +96,7 @@ function App() {
 
       <Input
         name="score"
-        placeholder="Enter your score"
+        placeholder="Enter your score here"
         handleInput={handleInput}
       />
 
