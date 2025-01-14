@@ -12,12 +12,35 @@ function App() {
   const [chatbox, setChatbox] = useState([]);
   const [msg, setMsg] = useState("");
 
-  const socket = io("http://localhost:3000");
+  const socket = io("http://localhost:3000", { autoConnect: false });
 
-  socket.disconnect();
+  const usernameAlreadySelected = false;
 
   socket.on("connect", (sock) => {
     console.log(sock);
+  });
+
+  const sessionID = sessionStorage.getItem("sessionID");
+
+  if (sessionID) {
+    usernameAlreadySelected = true;
+    socket.auth = { sessionID };
+    socket.connect();
+  }
+
+  socket.on("session", ({ sessionID, userID }) => {
+    // attach the session ID to the next reconnection attempts
+    socket.auth = { sessionID };
+    // store it in the sessionStorage
+    sessionStorage.setItem("sessionID", sessionID);
+    // save the ID of the user
+    socket.userID = userID;
+  });
+
+  socket.on("connect_error", (err) => {
+    if (err.message === "invalid username") {
+      usernameAlreadySelected = false;
+    }
   });
 
   const handleInput = (event) => {
@@ -39,12 +62,12 @@ function App() {
 
   const sendScores = () => {
     socket.emit("scores", score);
-
-    socket.on("playerScores", (data) => {
-      console.log(data);
-      setAllScores(data);
-    });
   };
+
+  socket.on("playerScores", (data) => {
+    console.log(data);
+    setAllScores(data);
+  });
 
   socket.on("chat", (chatData) => {
     console.log(chatData);
