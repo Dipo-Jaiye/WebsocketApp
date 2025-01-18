@@ -20,7 +20,7 @@ function App() {
     socket.connect();
   };
 
-  const usernameAlreadySelected = false;
+  let usernameAlreadySelected = false;
 
   socket.on("connect", (sock) => {
     console.log(sock);
