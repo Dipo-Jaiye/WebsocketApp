@@ -51,6 +51,7 @@ class InMemoryMessageStore extends MessageStore {
 }
 
 const sessionStore = new InMemorySessionStore();
+const messageStore = new InMemoryMessageStore();
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
