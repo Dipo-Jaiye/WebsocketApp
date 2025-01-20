@@ -14,13 +14,13 @@ function App() {
 
   const socket = io("http://localhost:3000", { autoConnect: false });
 
+  let usernameAlreadySelected = false;
+
   const onUsernameSelection = (username) => {
-    this.usernameAlreadySelected = true;
+    usernameAlreadySelected = true;
     socket.auth = { username };
     socket.connect();
   };
-
-  let usernameAlreadySelected = false;
 
   socket.on("connect", (sock) => {
     console.log(sock);
@@ -67,6 +67,7 @@ function App() {
   };
 
   const sendScores = () => {
+    onUsernameSelection(score.name);
     socket.emit("scores", score);
   };
 
