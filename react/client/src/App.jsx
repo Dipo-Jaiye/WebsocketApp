@@ -72,12 +72,10 @@ function App() {
   };
 
   socket.on("playerScores", (data) => {
-    console.log(data);
     setAllScores(data);
   });
 
   socket.on("chat", (chatData) => {
-    console.log(chatData);
     setChatbox(chatData);
   });
 
