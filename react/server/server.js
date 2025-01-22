@@ -94,7 +94,13 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("scores", (data) => {
-    playerScores.push({ ...data, key: socket.id });
+    let idx = playerScores.findIndex((x) => x.name == data.name);
+    if (idx !== -1) {
+      playerScores[idx].score = data.score;
+    } else {
+      playerScores.push({ ...data, key: socket.id });
+    }
+
     io.emit("playerScores", playerScores);
   });
 
