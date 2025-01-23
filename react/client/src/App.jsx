@@ -22,10 +22,6 @@ function App() {
     socket.connect();
   };
 
-  socket.on("connect", (sock) => {
-    console.log(sock);
-  });
-
   const sessionID = sessionStorage.getItem("sessionID");
 
   if (sessionID) {
