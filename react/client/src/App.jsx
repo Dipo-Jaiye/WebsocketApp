@@ -14,7 +14,7 @@ function App() {
 
   const socket = io("http://localhost:3000", { autoConnect: false });
 
-  let usernameAlreadySelected = false;
+  let usernameAlreadySelected;
 
   const onUsernameSelection = (username) => {
     usernameAlreadySelected = true;
