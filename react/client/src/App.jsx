@@ -94,24 +94,6 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
-      <div className="card">
-        <h3>ChatRoom View</h3>
-        {chatbox?.length > 0 ? (
-          chatbox.map((chatData) => (
-            <p>
-              Username {chatData?.name}: {chatData?.message}
-            </p>
-          ))
-        ) : (
-          <></>
-        )}
-        <Input
-          name="msg"
-          placeholder="Enter a message"
-          handleInput={handleMessage}
-        />
-        <button onClick={sendMessage}>Send message</button>
-      </div>
       <Input
         name="name"
         placeholder="Enter your name"
@@ -148,6 +130,24 @@ function App() {
       ) : (
         <></>
       )}
+      <div className="card">
+        <h3>ChatRoom View</h3>
+        {chatbox?.length > 0 ? (
+          chatbox.map((chatData) => (
+            <p>
+              Username {chatData?.name}: {chatData?.message}
+            </p>
+          ))
+        ) : (
+          <></>
+        )}
+        <Input
+          name="msg"
+          placeholder="Enter a message"
+          handleInput={handleMessage}
+        />
+        <button onClick={sendMessage}>Send message</button>
+      </div>
     </>
   );
 }
