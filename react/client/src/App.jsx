@@ -96,7 +96,7 @@ function App() {
       </div>
       <Input
         name="name"
-        placeholder="Enter your name"
+        placeholder="Enter your username"
         handleInput={handleInput}
       />
 
