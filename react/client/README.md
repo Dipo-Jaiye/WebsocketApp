@@ -7,5 +7,6 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Some updates will be made to prevent running out of memory<br>
-Session storage will be used.
+This test project is to understand websockets and their usage<br>
+
+A multiplayer game dashboard with chat features available is the goal.
